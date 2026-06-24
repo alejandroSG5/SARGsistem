@@ -65,8 +65,9 @@ export const RealAnatomyModel: React.FC<RealAnatomyModelProps> = ({ selectedPart
     const groupRef = useRef<THREE.Group>(null);
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
-    // Carga real del modelo GLB
-    const { scene } = useGLTF('/models/anatomy.glb');
+    // Carga real del modelo GLB usando BASE_URL para compatibilidad con GitHub Pages
+    const modelPath = `${import.meta.env.BASE_URL}models/anatomy.glb`;
+    const { scene } = useGLTF(modelPath);
 
     // Clonar escena para no mutar el caché global de useGLTF
     const clonedScene = useMemo(() => scene.clone(true), [scene]);
@@ -164,4 +165,4 @@ export const RealAnatomyModel: React.FC<RealAnatomyModelProps> = ({ selectedPart
 export { PART_LABELS, VISIBILITY_MAP, LAYER_COLORS };
 
 // Pre-cargar el modelo para evitar lag
-useGLTF.preload('/models/anatomy.glb');
+useGLTF.preload(`${import.meta.env.BASE_URL}models/anatomy.glb`);

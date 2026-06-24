@@ -4,6 +4,8 @@ import { OrbitControls, Environment, ContactShadows, Loader } from '@react-three
 import { EffectComposer, Bloom, SSAO, ToneMapping } from '@react-three/postprocessing';
 import { RealAnatomyModel, PART_LABELS } from './RealAnatomyModel';
 import { CameraRig } from './CameraRig';
+import { AnatomyErrorBoundary } from './AnatomyErrorBoundary';
+import { AnatomyLoader } from './AnatomyLoader';
 import { 
     Activity, Layers, Scan, ZoomIn, Eye, EyeOff, 
     RotateCcw, Zap, Box, CircleDot
@@ -105,48 +107,49 @@ const AnatomyViewer3D: React.FC = () => {
                 </div>
 
                 {/* Three.js Canvas */}
-                <Canvas shadows camera={{ position: [0, 5, 15], fov: 50 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
-                    <color attach="background" args={['#060608']} />
-                    
-                    {/* Iluminación */}
-                    <ambientLight intensity={0.6} />
-                    <directionalLight position={[10, 15, 10]} intensity={2.5} castShadow />
-                    <directionalLight position={[-8, 10, -5]} intensity={1.2} color="#93c5fd" />
-                    <pointLight position={[0, -5, 5]} intensity={0.8} color="#f87171" />
-                    
-                    <Suspense fallback={null}>
-                        <CameraRig selectedPart={selectedPart} />
+                <AnatomyErrorBoundary>
+                    <Canvas shadows camera={{ position: [0, 5, 15], fov: 50 }} gl={{ antialias: true, powerPreference: 'high-performance' }}>
+                        <color attach="background" args={['#060608']} />
                         
-                        <RealAnatomyModel 
-                            selectedPart={selectedPart} 
-                            onPartSelected={setSelectedPart} 
-                            visibleLayers={visibleLayers}
-                            xrayMode={xrayMode}
-                        />
+                        {/* Iluminación */}
+                        <ambientLight intensity={0.6} />
+                        <directionalLight position={[10, 15, 10]} intensity={2.5} castShadow />
+                        <directionalLight position={[-8, 10, -5]} intensity={1.2} color="#93c5fd" />
+                        <pointLight position={[0, -5, 5]} intensity={0.8} color="#f87171" />
                         
-                        <Environment preset="studio" />
-                        <ContactShadows position={[0, -8, 0]} opacity={0.5} scale={40} blur={2} far={20} color="#000" />
-                        
-                        <EffectComposer multisampling={4}>
-                            <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.9} height={300} intensity={0.8} />
-                            <SSAO radius={0.3} intensity={15} luminanceInfluence={0.5} />
-                            <ToneMapping />
-                        </EffectComposer>
-                    </Suspense>
+                        <Suspense fallback={<AnatomyLoader />}>
+                            <CameraRig selectedPart={selectedPart} />
+                            
+                            <RealAnatomyModel 
+                                selectedPart={selectedPart} 
+                                onPartSelected={setSelectedPart} 
+                                visibleLayers={visibleLayers}
+                                xrayMode={xrayMode}
+                            />
+                            
+                            <Environment preset="studio" />
+                            <ContactShadows position={[0, -8, 0]} opacity={0.5} scale={40} blur={2} far={20} color="#000" />
+                            
+                            <EffectComposer multisampling={4}>
+                                <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.9} mipmapBlur intensity={0.8} />
+                                <SSAO radius={0.3} intensity={15} luminanceInfluence={0.5} />
+                                <ToneMapping />
+                            </EffectComposer>
+                        </Suspense>
 
-                    <OrbitControls 
-                        makeDefault 
-                        minDistance={5} 
-                        maxDistance={30} 
-                        minPolarAngle={Math.PI / 6} 
-                        maxPolarAngle={Math.PI / 1.2} 
-                        enablePan={true} 
-                        enableZoom={true}
-                        autoRotate={!selectedPart}
-                        autoRotateSpeed={0.5}
-                    />
-                </Canvas>
-                <Loader />
+                        <OrbitControls 
+                            makeDefault 
+                            minDistance={5} 
+                            maxDistance={30} 
+                            minPolarAngle={Math.PI / 6} 
+                            maxPolarAngle={Math.PI / 1.2} 
+                            enablePan={true} 
+                            enableZoom={true}
+                            autoRotate={!selectedPart}
+                            autoRotateSpeed={0.5}
+                        />
+                    </Canvas>
+                </AnatomyErrorBoundary>
             </div>
 
             {/* PANEL DE INFORMACIÓN */}
