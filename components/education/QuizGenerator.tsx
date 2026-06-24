@@ -487,45 +487,45 @@ const QuizGenerator: React.FC = () => {
         const isCritical = timeLeft <= 10;
 
         return (
-            <div className="h-full flex flex-col bg-gray-50 dark:bg-[#0a0a0a] text-gray-900 dark:text-white p-3 md:p-8 overflow-hidden relative animate-in fade-in zoom-in-95 duration-500">
+            <div className="h-full flex flex-col bg-[#0a0a0a] text-white p-3 md:p-8 overflow-hidden relative animate-in fade-in zoom-in-95 duration-500">
 
                 {/* Animated BG */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-100/60 via-gray-50 to-white dark:from-purple-900/40 dark:via-[#0a0a0a] dark:to-black -z-10"></div>
-                <div className="absolute top-0 left-0 w-full h-1 md:h-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 dark:from-pink-500 dark:via-purple-500 dark:to-cyan-500 animate-[shimmer_2s_infinite]"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-[#0a0a0a] to-black -z-10"></div>
+                <div className="absolute top-0 left-0 w-full h-1 md:h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 animate-[shimmer_2s_infinite]"></div>
 
                 {/* TOP HUD */}
-                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-10 bg-white/60 dark:bg-white/5 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-[2rem] border border-gray-200 dark:border-white/10 gap-4 shadow-lg">
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-10 bg-white/5 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-[2rem] border border-white/10 gap-4 shadow-lg">
                     <div className="flex gap-4 md:gap-6 items-center w-full sm:w-auto justify-between sm:justify-start">
                         {quizData.isOffline && (
-                            <div className="bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-600 px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shadow-inner">
+                            <div className="bg-gray-800 text-gray-400 border border-gray-600 px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shadow-inner">
                                 Base Offline
                             </div>
                         )}
-                        <div className="flex items-center gap-2 bg-black/5 dark:bg-black/40 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-black/5 dark:border-white/5 shadow-inner">
+                        <div className="flex items-center gap-2 bg-black/40 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-white/5 shadow-inner">
                             <Heart className={`fill-red-500 text-red-500 ${lives < 2 ? 'animate-ping' : ''}`} size={16} />
-                            <span className="font-black text-base md:text-xl text-gray-800 dark:text-white">{lives}</span>
+                            <span className="font-black text-base md:text-xl text-white">{lives}</span>
                         </div>
-                        <div className="flex items-center gap-2 bg-black/5 dark:bg-black/40 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-black/5 dark:border-white/5 shadow-inner">
-                            <Trophy className="text-yellow-500 dark:text-yellow-400" size={16} />
-                            <span className="font-black text-base md:text-xl text-gray-800 dark:text-white">{score}</span>
+                        <div className="flex items-center gap-2 bg-black/40 px-3 md:px-4 py-1.5 md:py-2 rounded-full border border-white/5 shadow-inner">
+                            <Trophy className="text-yellow-400" size={16} />
+                            <span className="font-black text-base md:text-xl text-white">{score}</span>
                         </div>
                         {combo > 1 && (
-                            <div className="bg-gradient-to-r from-orange-400 to-red-500 dark:from-orange-500 dark:to-red-500 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-black italic animate-bounce flex items-center gap-1 shadow-[0_0_15px_rgba(249,115,22,0.5)] text-white">
+                            <div className="bg-gradient-to-r from-orange-500 to-red-500 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-black italic animate-bounce flex items-center gap-1 shadow-[0_0_15px_rgba(249,115,22,0.5)] text-white">
                                 <Flame size={14} fill="currentColor" /> {combo}x
                             </div>
                         )}
                     </div>
 
                     {/* Timer Bar */}
-                    <div className="flex items-center gap-3 w-full sm:w-1/3 md:w-1/4 bg-black/5 dark:bg-black/40 p-2 md:p-3 rounded-full border border-black/5 dark:border-white/5">
-                        <Clock size={18} className={isCritical ? 'text-red-500 animate-pulse' : 'text-gray-500 dark:text-gray-400'} />
-                        <div className="flex-1 h-3 md:h-4 bg-gray-300 dark:bg-gray-900 rounded-full overflow-hidden relative shadow-inner">
+                    <div className="flex items-center gap-3 w-full sm:w-1/3 md:w-1/4 bg-black/40 p-2 md:p-3 rounded-full border border-white/5">
+                        <Clock size={18} className={isCritical ? 'text-red-500 animate-pulse' : 'text-gray-400'} />
+                        <div className="flex-1 h-3 md:h-4 bg-gray-900 rounded-full overflow-hidden relative shadow-inner">
                             <div
-                                className={`h-full transition-all duration-1000 ease-linear shadow-[0_0_10px_currentColor] ${isCritical ? 'bg-red-500 text-red-500' : 'bg-blue-500 dark:bg-cyan-400 text-blue-500 dark:text-cyan-400'}`}
+                                className={`h-full transition-all duration-1000 ease-linear shadow-[0_0_10px_currentColor] ${isCritical ? 'bg-red-500 text-red-500' : 'bg-cyan-400 text-cyan-400'}`}
                                 style={{ width: `${(timeLeft / 30) * 100}%` }}
                             ></div>
                         </div>
-                        <span className={`font-mono font-black text-sm md:text-lg w-8 text-right ${isCritical ? 'text-red-500' : 'text-blue-600 dark:text-cyan-400'}`}>{timeLeft}</span>
+                        <span className={`font-mono font-black text-sm md:text-lg w-8 text-right ${isCritical ? 'text-red-500' : 'text-cyan-400'}`}>{timeLeft}</span>
                     </div>
                 </div>
 
@@ -533,19 +533,19 @@ const QuizGenerator: React.FC = () => {
                 <div className="flex-1 flex flex-col justify-center max-w-5xl mx-auto w-full relative z-10 pb-24 md:pb-0">
 
                     {/* Question Card */}
-                    <div className={`bg-white/80 dark:bg-black/60 backdrop-blur-2xl p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-white/10 text-center mb-6 md:mb-10 transition-all duration-300 relative overflow-hidden ${answerStatus === 'wrong' ? 'animate-[shake_0.5s_ease-in-out] border-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.2)] dark:shadow-[0_0_40px_rgba(239,68,68,0.3)]' : ''} ${answerStatus === 'correct' ? 'border-green-500/50 shadow-[0_0_40px_rgba(34,197,94,0.2)] dark:shadow-[0_0_40px_rgba(34,197,94,0.3)]' : ''}`}>
-                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-black/10 dark:via-white/10 to-transparent"></div>
+                    <div className={`bg-black/60 backdrop-blur-2xl p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] border border-white/10 text-center mb-6 md:mb-10 transition-all duration-300 relative overflow-hidden ${answerStatus === 'wrong' ? 'animate-[shake_0.5s_ease-in-out] border-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.3)]' : ''} ${answerStatus === 'correct' ? 'border-green-500/50 shadow-[0_0_40px_rgba(34,197,94,0.3)]' : ''}`}>
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-                        <span className="inline-block bg-black/5 dark:bg-white/5 px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 md:mb-8 text-gray-500 dark:text-gray-400 border border-black/10 dark:border-white/5 shadow-inner">
+                        <span className="inline-block bg-white/5 px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 md:mb-8 text-gray-400 border border-white/5 shadow-inner">
                             Pregunta {currentQuestion + 1} de {quizData.questions.length}
                         </span>
-                        <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white leading-tight mb-2 md:mb-4 tracking-tight">
+                        <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight mb-2 md:mb-4 tracking-tight">
                             {q.question}
                         </h2>
                         {/* Hint Area */}
                         {hintVisible && (
-                            <div className="mt-6 md:mt-8 p-3 md:p-4 bg-yellow-100 dark:bg-yellow-500/10 border border-yellow-300 dark:border-yellow-500/30 rounded-2xl text-yellow-800 dark:text-yellow-300 text-xs md:text-sm font-bold animate-in slide-in-from-top flex items-center justify-center gap-2 max-w-2xl mx-auto backdrop-blur-md">
-                                <Lightbulb size={18} className="text-yellow-600 dark:text-yellow-400 animate-pulse shrink-0" /> PISTA: {q.explanation.substring(0, 80)}...
+                            <div className="mt-6 md:mt-8 p-3 md:p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl text-yellow-300 text-xs md:text-sm font-bold animate-in slide-in-from-top flex items-center justify-center gap-2 max-w-2xl mx-auto backdrop-blur-md">
+                                <Lightbulb size={18} className="text-yellow-400 animate-pulse shrink-0" /> PISTA: {q.explanation.substring(0, 80)}...
                             </div>
                         )}
                     </div>
@@ -555,12 +555,12 @@ const QuizGenerator: React.FC = () => {
                         {q.options.map((opt, idx) => {
                             if (!visibleOptions.includes(idx)) return <div key={idx} className="invisible hidden md:block"></div>;
 
-                            let btnClass = "bg-white/60 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 border-gray-200 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:border-gray-300 dark:hover:border-white/20 shadow-sm";
+                            let btnClass = "bg-white/5 hover:bg-white/10 border-white/5 text-gray-300 hover:text-white hover:border-white/20 shadow-sm";
                             if (selectedOption === idx) {
-                                if (answerStatus === 'correct') btnClass = "bg-green-500 dark:bg-green-600 text-white border-green-400 shadow-[0_0_40px_rgba(34,197,94,0.4)] scale-[1.02] md:scale-105 z-20";
-                                else if (answerStatus === 'wrong') btnClass = "bg-red-500 dark:bg-red-600 text-white border-red-400 shadow-[0_0_40px_rgba(239,68,68,0.4)] scale-[0.98] md:scale-95 opacity-90";
+                                if (answerStatus === 'correct') btnClass = "bg-green-600 text-white border-green-400 shadow-[0_0_40px_rgba(34,197,94,0.4)] scale-[1.02] md:scale-105 z-20";
+                                else if (answerStatus === 'wrong') btnClass = "bg-red-600 text-white border-red-400 shadow-[0_0_40px_rgba(239,68,68,0.4)] scale-[0.98] md:scale-95 opacity-90";
                             } else if (answerStatus !== 'idle' && idx === q.correctIndex) {
-                                btnClass = "bg-green-100 dark:bg-green-600/30 text-green-700 dark:text-green-100 border-green-300 dark:border-green-400/50 border-dashed animate-pulse";
+                                btnClass = "bg-green-600/30 text-green-100 border-green-400/50 border-dashed animate-pulse";
                             }
 
                             return (
@@ -582,15 +582,15 @@ const QuizGenerator: React.FC = () => {
 
                     {/* Explanation / Next Button Overlay */}
                     {answerStatus !== 'idle' && (
-                        <div className="mt-6 md:mt-10 animate-in slide-in-from-bottom-8 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] border border-gray-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 shadow-xl dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 dark:from-cyan-400 to-purple-500"></div>
+                        <div className="mt-6 md:mt-10 animate-in slide-in-from-bottom-8 bg-gray-900/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                            <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-cyan-400 to-purple-500"></div>
                             <div className="flex-1 text-left pl-4">
-                                <h4 className="font-black uppercase text-[10px] md:text-xs text-blue-600 dark:text-cyan-400 mb-2 flex items-center gap-2"><BookOpen size={14} /> Aprende Más</h4>
-                                <p className="text-xs sm:text-sm md:text-base font-medium text-gray-700 dark:text-gray-300 leading-relaxed">{q.explanation}</p>
+                                <h4 className="font-black uppercase text-[10px] md:text-xs text-cyan-400 mb-2 flex items-center gap-2"><BookOpen size={14} /> Aprende Más</h4>
+                                <p className="text-xs sm:text-sm md:text-base font-medium text-gray-300 leading-relaxed">{q.explanation}</p>
                             </div>
                             <button
                                 onClick={nextQuestion}
-                                className="w-full md:w-auto px-8 md:px-10 py-4 md:py-5 bg-black dark:bg-white text-white dark:text-black rounded-[1.5rem] font-black hover:scale-105 active:scale-95 transition-transform shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center justify-center gap-3 whitespace-nowrap hover:bg-gray-800 dark:hover:bg-gray-100 text-sm md:text-lg"
+                                className="w-full md:w-auto px-8 md:px-10 py-4 md:py-5 bg-white text-black rounded-[1.5rem] font-black hover:scale-105 active:scale-95 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)] flex items-center justify-center gap-3 whitespace-nowrap hover:bg-gray-100 text-sm md:text-lg"
                             >
                                 {currentQuestion < quizData.questions.length - 1 ? 'SIGUIENTE' : 'VER RESULTADOS'} <ArrowRight size={24} strokeWidth={3} />
                             </button>
