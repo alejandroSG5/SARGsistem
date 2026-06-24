@@ -153,17 +153,35 @@ export const generateSimulationCase = async (topic: string): Promise<any> => {
 };
 
 export const generateQuiz = async (topic: string, difficulty: string = "Intermedio"): Promise<any> => { 
-    const fallbackQuiz = {
-        title: topic,
-        isOffline: true,
-        questions: [
-            { id: 1, type: "multiple_choice", question: `¿Cuál es la base teórica fundamental de ${topic}?`, options: ["El análisis sistemático de variables", "Solo la observación pasiva", "Ninguna de las anteriores", "El aprendizaje empírico desestructurado"], correctIndex: 0, explanation: `El estudio moderno de ${topic} requiere una perspectiva analítica estructurada.` },
-            { id: 2, type: "multiple_choice", question: `A nivel ${difficulty}, ¿cómo se aplica ${topic}?`, options: ["A través de métodos abstractos", "Mediante la integración teórico-práctica", "No tiene aplicación real", "Solo en teoría"], correctIndex: 1, explanation: "La integración teórico-práctica consolida el aprendizaje avanzado." },
-            { id: 3, type: "multiple_choice", question: `Selecciona el factor más crítico en ${topic}:`, options: ["Factores externos irrelevantes", "Consistencia y validación", "Ignorar las metodologías", "Suposiciones aleatorias"], correctIndex: 1, explanation: "La consistencia asegura resultados reproducibles." },
-            { id: 4, type: "multiple_choice", question: `¿Qué resultado es esperado al dominar ${topic}?`, options: ["Confusión", "Capacidad resolutiva avanzada", "Desinterés", "Reducción de análisis"], correctIndex: 1, explanation: "Dominar la materia aumenta directamente la capacidad resolutiva." },
-            { id: 5, type: "multiple_choice", question: `Para evaluar el progreso en ${topic}, se debe:`, options: ["Hacer pruebas periódicas y revisiones", "Solo estudiar una vez", "Dejar de leer sobre el tema", "Evitar la práctica"], correctIndex: 0, explanation: "La evaluación continua es vital." }
-        ]
-    };
+    let fallbackQuiz;
+    try {
+        // Carga dinámica de la base de datos masiva de 1000 exámenes
+        const db = await import('../data/sarg_quiz_database.json');
+        const quizzes = db.default || db;
+        
+        // Búsqueda inteligente por similitud
+        const searchTopic = topic.toLowerCase();
+        let matchedQuiz = quizzes.find((q: any) => q.title.toLowerCase().includes(searchTopic) || q.category.toLowerCase().includes(searchTopic));
+        
+        if (!matchedQuiz) {
+            // Si no encuentra el tema exacto, elige uno aleatorio para que NUNCA falle
+            matchedQuiz = quizzes[Math.floor(Math.random() * quizzes.length)];
+        }
+        fallbackQuiz = matchedQuiz;
+    } catch (error) {
+        // Si por alguna razón el JSON falla, usamos el básico
+        fallbackQuiz = {
+            title: topic,
+            isOffline: true,
+            questions: [
+                { id: 1, type: "multiple_choice", question: `¿Cuál es la base teórica fundamental de ${topic}?`, options: ["El análisis sistemático de variables", "Solo la observación pasiva", "Ninguna de las anteriores", "El aprendizaje empírico desestructurado"], correctIndex: 0, explanation: `El estudio moderno de ${topic} requiere una perspectiva analítica estructurada.` },
+                { id: 2, type: "multiple_choice", question: `A nivel ${difficulty}, ¿cómo se aplica ${topic}?`, options: ["A través de métodos abstractos", "Mediante la integración teórico-práctica", "No tiene aplicación real", "Solo en teoría"], correctIndex: 1, explanation: "La integración teórico-práctica consolida el aprendizaje avanzado." },
+                { id: 3, type: "multiple_choice", question: `Selecciona el factor más crítico en ${topic}:`, options: ["Factores externos irrelevantes", "Consistencia y validación", "Ignorar las metodologías", "Suposiciones aleatorias"], correctIndex: 1, explanation: "La consistencia asegura resultados reproducibles." },
+                { id: 4, type: "multiple_choice", question: `¿Qué resultado es esperado al dominar ${topic}?`, options: ["Confusión", "Capacidad resolutiva avanzada", "Desinterés", "Reducción de análisis"], correctIndex: 1, explanation: "Dominar la materia aumenta directamente la capacidad resolutiva." },
+                { id: 5, type: "multiple_choice", question: `Para evaluar el progreso en ${topic}, se debe:`, options: ["Hacer pruebas periódicas y revisiones", "Solo estudiar una vez", "Dejar de leer sobre el tema", "Evitar la práctica"], correctIndex: 0, explanation: "La evaluación continua es vital." }
+            ]
+        };
+    }
 
     const systemPrompt = `Genera un quiz JSON sobre ${topic} (5 preguntas). Format: { "title": "", "questions": [{ "id": 1, "type": "multiple_choice", "question": "", "options": [], "correctIndex": 0, "explanation": "" }]}`;
     return await fetchAI(systemPrompt, `Genera quiz sobre: ${topic}`, fallbackQuiz, true);
