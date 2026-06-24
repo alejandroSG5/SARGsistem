@@ -487,14 +487,14 @@ const QuizGenerator: React.FC = () => {
         const isCritical = timeLeft <= 10;
 
         return (
-            <div className="h-full flex flex-col bg-[#0a0a0a] text-white p-3 md:p-8 overflow-hidden relative animate-in fade-in zoom-in-95 duration-500">
+            <div className="h-full flex flex-col bg-gray-50 dark:bg-[#0a0a0a] text-gray-900 dark:text-white p-3 md:p-8 overflow-hidden relative animate-in fade-in zoom-in-95 duration-500">
 
                 {/* Animated BG */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-[#0a0a0a] to-black -z-10"></div>
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-100/40 via-gray-50 to-white dark:from-purple-900/40 dark:via-[#0a0a0a] dark:to-black -z-10"></div>
                 <div className="absolute top-0 left-0 w-full h-1 md:h-2 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 animate-[shimmer_2s_infinite]"></div>
 
                 {/* TOP HUD */}
-                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-10 bg-white/5 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-[2rem] border border-white/10 gap-4 shadow-lg">
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 md:mb-10 bg-white dark:bg-white/5 backdrop-blur-xl p-3 md:p-5 rounded-2xl md:rounded-[2rem] border border-gray-200 dark:border-white/10 gap-4 shadow-lg">
                     <div className="flex gap-4 md:gap-6 items-center w-full sm:w-auto justify-between sm:justify-start">
                         {quizData.isOffline && (
                             <div className="bg-gray-800 text-gray-400 border border-gray-600 px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-1 shadow-inner">
@@ -555,7 +555,7 @@ const QuizGenerator: React.FC = () => {
                         {q.options.map((opt, idx) => {
                             if (!visibleOptions.includes(idx)) return <div key={idx} className="invisible hidden md:block"></div>;
 
-                            let btnClass = "bg-white/5 hover:bg-white/10 border-white/5 text-gray-300 hover:text-white hover:border-white/20";
+                            let btnClass = "bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 border-gray-200 dark:border-white/5 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:border-gray-300 dark:hover:border-white/20";
                             if (selectedOption === idx) {
                                 if (answerStatus === 'correct') btnClass = "bg-green-600 text-white border-green-400 shadow-[0_0_40px_rgba(34,197,94,0.6)] scale-[1.02] md:scale-105 z-20";
                                 else if (answerStatus === 'wrong') btnClass = "bg-red-600 text-white border-red-400 shadow-[0_0_40px_rgba(239,68,68,0.6)] scale-[0.98] md:scale-95 opacity-90";
@@ -582,11 +582,11 @@ const QuizGenerator: React.FC = () => {
 
                     {/* Explanation / Next Button Overlay */}
                     {answerStatus !== 'idle' && (
-                        <div className="mt-6 md:mt-10 animate-in slide-in-from-bottom-8 bg-gray-900/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] border border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                        <div className="mt-6 md:mt-10 animate-in slide-in-from-bottom-8 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] border border-gray-200 dark:border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 shadow-[0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
                             <div className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-cyan-400 to-purple-500"></div>
                             <div className="flex-1 text-left pl-4">
-                                <h4 className="font-black uppercase text-[10px] md:text-xs text-cyan-400 mb-2 flex items-center gap-2"><BookOpen size={14} /> Aprende Más</h4>
-                                <p className="text-xs sm:text-sm md:text-base font-medium text-gray-300 leading-relaxed">{q.explanation}</p>
+                                <h4 className="font-black uppercase text-[10px] md:text-xs text-cyan-600 dark:text-cyan-400 mb-2 flex items-center gap-2"><BookOpen size={14} /> Aprende Más</h4>
+                                <p className="text-xs sm:text-sm md:text-base font-medium text-gray-700 dark:text-gray-300 leading-relaxed">{q.explanation}</p>
                             </div>
                             <button
                                 onClick={nextQuestion}
@@ -599,7 +599,7 @@ const QuizGenerator: React.FC = () => {
                 </div>
 
                 {/* LIFELINES DOCK */}
-                <div className="fixed md:absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-3 md:gap-5 z-30 bg-black/50 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-3 md:p-0 rounded-full border border-white/10 md:border-transparent shadow-2xl md:shadow-none">
+                <div className="fixed md:absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-3 md:gap-5 z-30 bg-white/80 md:bg-transparent dark:bg-black/50 backdrop-blur-md md:backdrop-blur-none p-3 md:p-0 rounded-full border border-gray-200/50 md:border-transparent dark:border-white/10 shadow-xl md:shadow-none">
                     <button
                         onClick={use5050}
                         disabled={used5050 || answerStatus !== 'idle'}
