@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://js.puter.com/v2/"></script>
+<script>
+window.onload = async () => {
+    try {
+        console.log("Is Signed In: ", puter.auth.isSignedIn());
+        const res = await puter.ai.chat("Hola");
+        console.log("Res: ", res);
+    } catch(e) {
+        console.error("Error: ", e);
+    }
+}
+</script>
+</body>
+</html>

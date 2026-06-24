@@ -1,0 +1,8 @@
+{
+  "name": "SARG",
+  "description": "Una plataforma educativa y de salud offline-first diseñada para comunidades con acceso limitado, inspirada en el ajolote y adaptada a lenguas indígenas.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
