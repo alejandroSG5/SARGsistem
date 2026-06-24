@@ -37,9 +37,9 @@ const AnatomyViewer3D: React.FC = () => {
     const selectedLabel = selectedPart ? (PART_LABELS[selectedPart] || selectedPart) : null;
 
     return (
-        <div className="w-full h-[85vh] flex flex-col lg:flex-row gap-6 animate-in fade-in">
+        <div className="w-full min-h-[85vh] lg:h-[85vh] flex flex-col lg:flex-row gap-6 animate-in fade-in">
             {/* VIEWPORT 3D */}
-            <div className="flex-1 bg-[#060608] rounded-[3rem] overflow-hidden relative shadow-2xl border border-gray-800">
+            <div className="flex-1 min-h-[400px] lg:min-h-0 bg-[#060608] rounded-[3rem] overflow-hidden relative shadow-2xl border border-gray-800">
                 {/* Header */}
                 <div className="absolute top-6 left-6 z-10 pointer-events-none">
                     <h3 className="font-black text-3xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-500 drop-shadow-md mb-1">

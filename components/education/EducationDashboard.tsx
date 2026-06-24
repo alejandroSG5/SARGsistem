@@ -113,7 +113,7 @@ const EducationDashboard: React.FC<EducationDashboardProps> = ({ moduleData, onB
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
            
            {/* LEFT: PROGRESS TRACKING */}
-           <div className="col-span-1 bg-white dark:bg-[#1a1c2a] rounded-[2rem] p-6 shadow-sm border border-blue-100 dark:border-blue-900/30 flex flex-col items-center justify-center text-center max-h-[300px] sticky top-8 group hover:-translate-y-1 transition-transform duration-300">
+           <div className="col-span-1 bg-white dark:bg-[#1a1c2a] rounded-[2rem] p-6 shadow-sm border border-blue-100 dark:border-blue-900/30 flex flex-col items-center justify-center text-center max-h-[300px] relative lg:sticky lg:top-8 group hover:-translate-y-1 transition-transform duration-300">
               <div className="flex items-center gap-2 mb-6">
                   <Clock size={18} className="text-blue-600 dark:text-blue-400" />
                   <h3 className="text-blue-600 dark:text-blue-400 text-sm font-black uppercase tracking-widest">Tiempo de Lectura</h3>

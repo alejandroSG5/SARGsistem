@@ -265,9 +265,9 @@ const RegionMap: React.FC<RegionMapProps> = ({ initialTarget }) => {
 
               if (!destMarker.current) {
                  const el = document.createElement('div');
-                 el.className = 'text-3xl animate-bounce';
+                 el.className = 'text-xl animate-bounce';
                  el.innerHTML = '📍';
-                 const icon = L.divIcon({ html: el, className: '', iconSize: [30, 30], iconAnchor: [15, 30] });
+                 const icon = L.divIcon({ html: el, className: '', iconSize: [24, 24], iconAnchor: [12, 24] });
                  destMarker.current = L.marker([selectedPoint.lat, selectedPoint.lng], { icon }).addTo(map.current);
               } else {
                  destMarker.current.setLatLng([selectedPoint.lat, selectedPoint.lng]);

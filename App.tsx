@@ -65,18 +65,29 @@ const App: React.FC = () => {
   useGlobalTapSound();
 
   // State
-  const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState<Language>(Language.ES);
+  const [darkMode, setDarkMode] = useState(() => JSON.parse(localStorage.getItem('sarg_darkMode') || 'false'));
+  const [language, setLanguage] = useState<Language>(() => localStorage.getItem('sarg_language') as Language || Language.ES);
   const [currentView, setCurrentView] = useState<'home' | 'modules' | 'profile' | 'about' | 'dialer'>('home');
   const [selectedModule, setSelectedModule] = useState<ModuleData | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<TopicData | null>(null);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
-  const [spatialEnabled, setSpatialEnabled] = useState(false);
+  const [spatialEnabled, setSpatialEnabled] = useState(() => JSON.parse(localStorage.getItem('sarg_spatialEnabled') || 'false'));
   const [currentNewsIndex, setCurrentNewsIndex] = useState(0);
-  const [userProfile, setUserProfile] = useState<{name: string, gender: 'hombre' | 'mujer' | ''} | null>(null);
-  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
-  const [profileEmoji, setProfileEmoji] = useState<string>('🦎');
+  const [userProfile, setUserProfile] = useState<{name: string, gender: 'hombre' | 'mujer' | ''} | null>(() => {
+    const saved = localStorage.getItem('sarg_userProfile');
+    return saved ? JSON.parse(saved) : null;
+  });
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(() => localStorage.getItem('sarg_profilePhoto'));
+  const [profileEmoji, setProfileEmoji] = useState<string>(() => localStorage.getItem('sarg_profileEmoji') || '🦎');
   const [isMotivationalBotTalking, setIsMotivationalBotTalking] = useState(false);
+
+  useEffect(() => { localStorage.setItem('sarg_darkMode', JSON.stringify(darkMode)); }, [darkMode]);
+  useEffect(() => { localStorage.setItem('sarg_language', language); }, [language]);
+  useEffect(() => { localStorage.setItem('sarg_spatialEnabled', JSON.stringify(spatialEnabled)); }, [spatialEnabled]);
+  useEffect(() => { if (userProfile) localStorage.setItem('sarg_userProfile', JSON.stringify(userProfile)); }, [userProfile]);
+  useEffect(() => { if (profilePhoto) localStorage.setItem('sarg_profilePhoto', profilePhoto); }, [profilePhoto]);
+  useEffect(() => { localStorage.setItem('sarg_profileEmoji', profileEmoji); }, [profileEmoji]);
+
 
   useEffect(() => {
     const handleOnline = () => setIsOffline(false);
@@ -118,7 +129,15 @@ const App: React.FC = () => {
   const t = TRANSLATIONS[language];
 
   // Handlers
-  const handleModuleClick = (module: ModuleData) => setSelectedModule(module);
+  const handleModuleClick = (module: ModuleData) => {
+    setSelectedModule(module);
+    if (userProfile) {
+      const visited = userProfile.visitedTopics || [];
+      if (!visited.includes(module.id)) {
+        setUserProfile({ ...userProfile, visitedTopics: [...visited, module.id], badges: (userProfile.badges || 0) + 1 });
+      }
+    }
+  };
   const handleBackToModules = () => { setSelectedModule(null); setSelectedTopic(null); };
 
   // --- ARCHITECTURAL COMPONENTS ---
@@ -133,7 +152,7 @@ const App: React.FC = () => {
       }, []);
   
       return (
-          <div className="absolute top-4 right-6 z-50 text-sm md:text-base lg:text-lg font-black text-gray-900 dark:text-white pointer-events-none select-none tracking-widest bg-white/80 dark:bg-black/40 px-4 py-2 rounded-full backdrop-blur-lg shadow-md border border-gray-300 dark:border-gray-700">
+          <div className="absolute top-2 right-2 md:top-4 md:right-6 z-50 text-xs md:text-base lg:text-lg font-black text-gray-900 dark:text-white pointer-events-none select-none tracking-widest bg-white/80 dark:bg-black/40 px-2 md:px-4 py-1 md:py-2 rounded-full backdrop-blur-lg shadow-md border border-gray-300 dark:border-gray-700">
               {time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
           </div>
       );
@@ -579,8 +598,11 @@ const App: React.FC = () => {
                 <button onClick={handleBackToModules} className="absolute left-0 p-3 rounded-full bg-white dark:bg-[#1e1e1e] shadow-sm hover:scale-105 transition-transform border border-gray-100 dark:border-white/5">
                     <ChevronRight className="rotate-180" size={20} />
                 </button>
-                <div className="flex flex-col items-center">
-                   <h2 className="text-2xl md:text-4xl font-black tracking-tighter flex gap-1 mb-1 drop-shadow-sm">
+                <div className="flex flex-col">
+                    <span className="text-xl md:text-2xl font-black mb-1 drop-shadow-md">{t.welcome || 'Bienvenido a SARG'}</span>
+                    <span className="text-xs md:text-sm font-bold opacity-90 backdrop-blur-sm">{t.subtitle || 'Conocimiento para todos, sin barreras.'}</span>
+                </div>
+                <h2 className="text-2xl md:text-4xl font-black tracking-tighter flex gap-1 mb-1 drop-shadow-sm">
                         <span className="text-blue-500">S</span>
                         <span className="text-rose-500">A</span>
                         <span className="text-amber-500">R</span>
@@ -591,7 +613,15 @@ const App: React.FC = () => {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {selectedModule.subModules.flatMap(sub => sub.items).map((item, i) => (
-                    <div key={i} onClick={() => setSelectedTopic(item)} className="bg-white dark:bg-[#1a1a1a] p-6 md:p-8 rounded-[2rem] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-center items-center text-center cursor-pointer group">
+                    <div key={i} onClick={() => {
+                      setSelectedTopic(item);
+                      if (userProfile) {
+                        const visited = userProfile.visitedTopics || [];
+                        if (!visited.includes(item.id)) {
+                          setUserProfile({ ...userProfile, visitedTopics: [...visited, item.id], badges: (userProfile.badges || 0) + 1 });
+                        }
+                      }
+                    }} className="bg-white dark:bg-[#1a1a1a] p-6 md:p-8 rounded-[2rem] shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col justify-center items-center text-center cursor-pointer group">
                         <h3 className="text-lg md:text-xl font-bold mb-2 group-hover:scale-105 transition-transform" style={{color: selectedModule.color?.replace('bg-', '').replace('-500', '').replace('-600', '') === 'rose' ? '#f43f5e' : selectedModule.color?.includes('blue') ? '#3b82f6' : selectedModule.color?.includes('green') ? '#10b981' : '#f59e0b'}}>{item.title}</h3>
                     </div>
                 ))}

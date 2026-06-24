@@ -44,13 +44,17 @@ const EngineeringDashboard: React.FC<EngineeringDashboardProps> = ({ moduleData,
       </div>
 
       <div className="p-4 lg:p-8 max-w-6xl mx-auto space-y-12 lg:space-y-16 mt-4 lg:mt-8">
+         <div className="bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 p-4 rounded-2xl flex items-center justify-center gap-3 font-bold text-sm text-center mb-8 border border-amber-200 dark:border-amber-800">
+             <Monitor size={20} /> RECOMENDABLE ABRIRLO EN PC PARA MEJOR EXPERIENCIA
+         </div>
+
          {/* MASSIVE 3-PILLAR GRID */}
          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
              
              {/* 1. CIRCUIT LAB */}
              <div 
                 onClick={() => setActiveSoftware('circuit')}
-                className="group relative min-h-[400px] rounded-[2.5rem] bg-yellow-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-8 hover:-translate-y-2 text-center items-center"
+                className="group relative min-h-[320px] rounded-[2.5rem] bg-yellow-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-6 lg:p-8 hover:-translate-y-2 text-center items-center"
              >
                  {/* Icon Float */}
                  <div className="absolute -top-10 -right-10 z-0 text-yellow-50 dark:text-yellow-900/10 group-hover:text-yellow-100 dark:group-hover:text-yellow-900/20 group-hover:scale-110 transition-all duration-500">
@@ -74,7 +78,7 @@ const EngineeringDashboard: React.FC<EngineeringDashboardProps> = ({ moduleData,
              {/* 2. SARG IDE */}
              <div 
                 onClick={() => setActiveSoftware('ide')}
-                className="group relative min-h-[400px] rounded-[2.5rem] bg-green-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-8 hover:-translate-y-2 text-center items-center"
+                className="group relative min-h-[320px] rounded-[2.5rem] bg-green-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-6 lg:p-8 hover:-translate-y-2 text-center items-center"
              >
                  <div className="absolute -top-10 -right-10 z-0 text-green-50 dark:text-green-900/10 group-hover:text-green-100 dark:group-hover:text-green-900/20 group-hover:scale-110 transition-all duration-500">
                      <Terminal size={250} />
@@ -97,7 +101,7 @@ const EngineeringDashboard: React.FC<EngineeringDashboardProps> = ({ moduleData,
              {/* 3. CAD STUDIO */}
              <div 
                 onClick={() => setActiveSoftware('cad')}
-                className="group relative min-h-[400px] rounded-[2.5rem] bg-purple-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-8 hover:-translate-y-2 text-center items-center"
+                className="group relative min-h-[320px] rounded-[2.5rem] bg-purple-50 dark:bg-[#1a1a1a] border border-transparent transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-md flex flex-col justify-between p-6 lg:p-8 hover:-translate-y-2 text-center items-center"
              >
                  <div className="absolute -top-10 -right-10 z-0 text-purple-50 dark:text-purple-900/10 group-hover:text-purple-100 dark:group-hover:text-purple-900/20 group-hover:scale-110 transition-all duration-500">
                      <Layers size={250} />

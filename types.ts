@@ -12,6 +12,9 @@ export type Category = 'Salud' | 'Educación' | 'Ambiente' | 'Ingeniería' | 'Ag
 export interface UserProfile {
   name: string;
   language: Language;
+  gender: 'hombre' | 'mujer' | '';
+  badges?: number;
+  visitedTopics?: string[];
   region: string;
   offlineMode: boolean;
 }

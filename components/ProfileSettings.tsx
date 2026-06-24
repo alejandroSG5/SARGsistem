@@ -120,7 +120,18 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
     }
   };
 
+  useEffect(() => {
+    let total = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key) total += localStorage.getItem(key)?.length || 0;
+    }
+    setStorageUsed(Math.max(1, Math.round(total / 1024)));
+  }, []);
+
   const storagePercent = Math.round((storageUsed / storageMax) * 100);
+  const badgesCount = userProfile?.badges || 0;
+  const progressPercent = Math.min(100, (userProfile?.visitedTopics?.length || 0) * 5);
 
   return (
     <div className="w-full h-full bg-[#f5f5f7] dark:bg-[#0a0a0a] overflow-y-auto custom-scrollbar pb-28">
@@ -259,9 +270,9 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = ({
       <div className="max-w-lg mx-auto px-6 mb-8">
         <div className="grid grid-cols-3 gap-3">
           {[
-            { icon: <Award size={20} />, value: '12', label: t.profile_badges || 'Insignias', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-500/10' },
-            { icon: <Zap size={20} />, value: '85%', label: t.profile_progress || 'Progreso', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10' },
-            { icon: <DownloadCloud size={20} />, value: `${storageUsed}MB`, label: t.profile_offline_status || 'Datos', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
+            { icon: <Award size={20} />, value: badgesCount.toString(), label: t.profile_badges || 'Insignias', color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-500/10' },
+            { icon: <Zap size={20} />, value: `${progressPercent}%`, label: t.profile_progress || 'Progreso', color: 'text-blue-500', bg: 'bg-blue-50 dark:bg-blue-500/10' },
+            { icon: <DownloadCloud size={20} />, value: `${storageUsed}KB`, label: t.profile_offline_status || 'Datos', color: 'text-emerald-500', bg: 'bg-emerald-50 dark:bg-emerald-500/10' },
           ].map((s, i) => (
             <div key={i} className={`${s.bg} rounded-2xl p-4 flex flex-col items-center`}>
               <div className={`${s.color} mb-1.5`}>{s.icon}</div>
