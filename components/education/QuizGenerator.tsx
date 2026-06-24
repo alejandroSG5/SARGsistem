@@ -269,7 +269,7 @@ const QuizGenerator: React.FC = () => {
     // --- RENDERERS ---
 
     const LoadingScreen = () => (
-        <div className="flex flex-col items-center justify-center h-full bg-gray-900 text-white rounded-[2rem] p-8 relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center h-full bg-[#0a0a0a] text-white p-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 animate-pulse"></div>
             <Loader2 size={64} className="text-blue-500 animate-spin mb-6 relative z-10" />
             <h3 className="text-2xl font-black animate-pulse text-center relative z-10">{loadingStep}</h3>
@@ -335,19 +335,19 @@ const QuizGenerator: React.FC = () => {
     // --- INPUT MODE (MAIN MENU) ---
     if (mode === 'input') {
         return (
-            <div className="flex flex-col h-full p-4 md:p-8 bg-gray-50/50 dark:bg-[#0d1117] rounded-[2rem] overflow-y-auto custom-scrollbar animate-in fade-in duration-500">
+            <div className="flex flex-col h-full p-4 md:p-8 bg-[#0d1117] overflow-y-auto custom-scrollbar animate-in fade-in duration-500">
 
                 {/* Hero Section */}
                 <div className="text-center mb-8 md:mb-12 relative mt-4 md:mt-8">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-72 md:h-72 bg-purple-500/10 dark:bg-purple-500/20 rounded-full blur-[60px] md:blur-[100px] pointer-events-none"></div>
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 md:w-72 md:h-72 bg-purple-500/20 rounded-full blur-[60px] md:blur-[100px] pointer-events-none"></div>
                     <div className="relative z-10">
-                        <div className="inline-block p-4 rounded-full bg-white dark:bg-gray-800 shadow-xl mb-6 animate-[bounce_3s_ease-in-out_infinite] border border-gray-100 dark:border-gray-700">
+                        <div className="inline-block p-4 rounded-full bg-gray-800 shadow-xl mb-6 animate-[bounce_3s_ease-in-out_infinite] border border-gray-700">
                             <Brain size={48} className="text-axolotl-pink md:w-16 md:h-16" />
                         </div>
-                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white mb-4 tracking-tighter leading-none">
+                        <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 tracking-tighter leading-none">
                             Arena de <span className="text-transparent bg-clip-text bg-gradient-to-r from-axolotl-pink to-purple-600 block sm:inline">Conocimiento</span>
                         </h2>
-                        <p className="text-gray-500 dark:text-gray-400 text-base md:text-xl font-medium max-w-2xl mx-auto px-4 leading-relaxed">
+                        <p className="text-gray-400 text-base md:text-xl font-medium max-w-2xl mx-auto px-4 leading-relaxed">
                             Elige un tema o desafía a la IA con cualquier tópico que imagines. <br className="hidden md:block" /> ¡Supera el test y gana medallas!
                         </p>
                     </div>
@@ -355,37 +355,37 @@ const QuizGenerator: React.FC = () => {
 
                 {/* Search Input */}
                 <div className="max-w-3xl mx-auto w-full mb-12 relative z-20 px-2 md:px-0">
-                    <div className="bg-white dark:bg-gray-800 p-2 md:p-3 rounded-[2rem] shadow-2xl border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-2 transition-all focus-within:ring-4 ring-purple-500/30 mb-6 group hover:shadow-purple-500/10">
+                    <div className="bg-gray-800 p-2 md:p-3 rounded-[2rem] shadow-2xl border border-gray-700 flex flex-col sm:flex-row gap-2 transition-all focus-within:ring-4 ring-purple-500/30 mb-6 group hover:shadow-purple-500/10">
                         <input
                             type="text"
                             value={topic}
                             onChange={(e) => setTopic(e.target.value)}
                             placeholder="Escribe cualquier tema... (Ej: Ajolotes)"
-                            className="flex-1 bg-transparent px-6 py-4 sm:py-5 outline-none font-black text-xl md:text-2xl text-gray-900 dark:text-white placeholder-gray-400/70 text-center sm:text-left transition-colors"
+                            className="flex-1 bg-transparent px-6 py-4 sm:py-5 outline-none font-black text-xl md:text-2xl text-white placeholder-gray-400/70 text-center sm:text-left transition-colors"
                             onKeyDown={(e) => e.key === 'Enter' && startProcess()}
                         />
                         <button
                             onClick={() => startProcess()}
                             disabled={!topic.trim()}
-                            className="w-full sm:w-auto px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-gray-900 to-gray-800 dark:from-axolotl-dark dark:to-purple-900 text-white rounded-[1.5rem] font-black text-lg md:text-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gray-900/20"
+                            className="w-full sm:w-auto px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-axolotl-dark to-purple-900 text-white rounded-[1.5rem] font-black text-lg md:text-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gray-900/20"
                         >
                             JUGAR <ArrowRight strokeWidth={4} className="group-hover:translate-x-1 transition-transform" />
                         </button>
                     </div>
 
                     {/* Difficulty Selector */}
-                    <div className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-xl py-3 px-6 rounded-[2rem] border border-gray-200/50 dark:border-gray-700/50 max-w-fit mx-auto shadow-sm">
-                        <span className="text-xs md:text-sm font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4 bg-gray-800/60 backdrop-blur-xl py-3 px-6 rounded-[2rem] border border-gray-700/50 max-w-fit mx-auto shadow-sm">
+                        <span className="text-xs md:text-sm font-black text-gray-500 uppercase tracking-widest flex items-center gap-2">
                             <Flame size={14} className="text-orange-500" /> Nivel:
                         </span>
-                        <div className="flex bg-gray-100 dark:bg-[#0d1117] p-1.5 rounded-full w-full sm:w-auto justify-between sm:justify-start">
+                        <div className="flex bg-[#0d1117] p-1.5 rounded-full w-full sm:w-auto justify-between sm:justify-start">
                             {['Básico', 'Intermedio', 'Avanzado'].map((level) => (
                                 <button
                                     key={level}
                                     onClick={() => setDifficulty(level as any)}
                                     className={`flex-1 sm:flex-none px-4 md:px-6 py-2.5 rounded-full text-xs md:text-sm font-black transition-all duration-300 ${difficulty === level
-                                            ? 'bg-white dark:bg-gray-700 text-purple-600 dark:text-purple-400 shadow-md scale-105 ring-1 ring-black/5 dark:ring-white/10'
-                                            : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-200/50 dark:hover:bg-gray-800/50'
+                                            ? 'bg-gray-700 text-purple-400 shadow-md scale-105 ring-1 ring-white/10'
+                                            : 'text-gray-500 hover:text-gray-300 hover:bg-gray-800/50'
                                         }`}
                                 >
                                     {level}
@@ -408,11 +408,11 @@ const QuizGenerator: React.FC = () => {
                                 className="group relative overflow-hidden rounded-[1.5rem] p-[2px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-4 ring-purple-500/30 active:scale-95"
                             >
                                 <div className={`absolute inset-0 bg-gradient-to-br ${sample.color} opacity-20 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                                <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md h-full rounded-[22px] p-5 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 border border-gray-100 dark:border-gray-800 relative z-10 transition-colors duration-500 group-hover:bg-transparent group-hover:border-transparent">
+                                <div className="bg-gray-900/95 backdrop-blur-md h-full rounded-[22px] p-5 sm:p-6 flex flex-col items-center justify-center gap-3 sm:gap-4 border border-gray-800 relative z-10 transition-colors duration-500 group-hover:bg-transparent group-hover:border-transparent">
                                     <div className={`p-3 md:p-4 rounded-full bg-gradient-to-br ${sample.color} text-white shadow-lg group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300`}>
                                         {React.cloneElement(sample.icon as any, { className: "w-6 h-6 md:w-8 md:h-8" })}
                                     </div>
-                                    <span className="font-black text-gray-800 dark:text-gray-100 text-center text-sm md:text-base leading-tight group-hover:text-white transition-colors duration-300 drop-shadow-sm">
+                                    <span className="font-black text-gray-100 text-center text-sm md:text-base leading-tight group-hover:text-white transition-colors duration-300 drop-shadow-sm">
                                         {sample.title}
                                     </span>
                                 </div>
@@ -428,16 +428,16 @@ const QuizGenerator: React.FC = () => {
     if (mode === 'study' && studyData) {
         return (
             <div className="h-full flex flex-col p-4 md:p-8 max-w-6xl mx-auto animate-in slide-in-from-bottom-8 duration-500">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4 bg-white/95 dark:bg-gray-800/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] shadow-xl border border-gray-100/50 dark:border-gray-700/50">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4 bg-gray-800/95 backdrop-blur-xl p-5 md:p-8 rounded-[2rem] shadow-xl border border-gray-700/50">
                     <div className="w-full md:w-auto">
                         <div className="text-[10px] md:text-xs font-black text-purple-500 uppercase tracking-widest mb-2 flex items-center gap-2">
                             <BookOpen size={14} className="animate-pulse" /> Guía de Estudio
-                            {studyData.isOffline && <span className="ml-2 px-2.5 py-1 bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full text-[9px] md:text-[10px]">Modo Offline</span>}
+                            {studyData.isOffline && <span className="ml-2 px-2.5 py-1 bg-gray-700 text-gray-300 rounded-full text-[9px] md:text-[10px]">Modo Offline</span>}
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight">{studyData.topic}</h2>
+                        <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">{studyData.topic}</h2>
                     </div>
                     <div className="flex flex-col sm:flex-row w-full md:w-auto gap-3">
-                        <button onClick={generatePDF} className="w-full sm:w-auto px-6 py-3.5 md:py-4 bg-blue-50/80 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 rounded-[1.25rem] font-black flex items-center justify-center gap-2 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors border border-blue-200/50 dark:border-blue-800/50 active:scale-95">
+                        <button onClick={generatePDF} className="w-full sm:w-auto px-6 py-3.5 md:py-4 bg-blue-900/20 text-blue-300 rounded-[1.25rem] font-black flex items-center justify-center gap-2 hover:bg-blue-900/40 transition-colors border border-blue-800/50 active:scale-95">
                             <Download size={20} /> PDF
                         </button>
                         <button onClick={startQuiz} className="w-full sm:w-auto px-8 md:px-10 py-3.5 md:py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-[1.25rem] font-black flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] hover:scale-105 active:scale-95 transition-all">
@@ -448,24 +448,24 @@ const QuizGenerator: React.FC = () => {
 
                 <div className="flex-1 overflow-y-auto space-y-6 md:space-y-8 pr-1 md:pr-4 custom-scrollbar pb-24 md:pb-10">
                     {studyData.modules.map((mod: any, i: number) => (
-                        <div key={i} className="bg-white dark:bg-[#151b23] p-6 md:p-10 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 relative overflow-hidden group hover:border-purple-100 dark:hover:border-purple-900/50 transition-colors">
-                            <div className="absolute top-0 right-0 w-24 h-24 md:w-40 md:h-40 bg-purple-500/5 dark:bg-purple-500/10 rounded-bl-[100px] transition-transform duration-500 group-hover:scale-125"></div>
+                        <div key={i} className="bg-[#151b23] p-6 md:p-10 rounded-[2rem] shadow-sm border border-gray-800 relative overflow-hidden group hover:border-purple-900/50 transition-colors">
+                            <div className="absolute top-0 right-0 w-24 h-24 md:w-40 md:h-40 bg-purple-500/10 rounded-bl-[100px] transition-transform duration-500 group-hover:scale-125"></div>
                             <div className="relative z-10">
-                                <h3 className="text-xl md:text-3xl font-black text-purple-600 dark:text-purple-400 mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
-                                    <span className="w-8 h-8 md:w-10 md:h-10 bg-purple-100 dark:bg-purple-900/50 rounded-xl flex items-center justify-center text-sm md:text-base border border-purple-200 dark:border-purple-800 shrink-0">{i + 1}</span>
+                                <h3 className="text-xl md:text-3xl font-black text-purple-400 mb-4 md:mb-6 flex items-center gap-3 md:gap-4">
+                                    <span className="w-8 h-8 md:w-10 md:h-10 bg-purple-900/50 rounded-xl flex items-center justify-center text-sm md:text-base border border-purple-800 shrink-0 text-white">{i + 1}</span>
                                     <span className="leading-tight">{mod.title}</span>
                                 </h3>
-                                <div className="prose dark:prose-invert prose-base md:prose-lg max-w-none text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line mb-6 md:mb-8 font-medium">
+                                <div className="prose prose-invert prose-base md:prose-lg max-w-none text-gray-300 leading-relaxed whitespace-pre-line mb-6 md:mb-8 font-medium">
                                     {mod.content}
                                 </div>
                                 {mod.keyPoints && (
-                                    <div className="bg-gradient-to-br from-purple-50/50 to-pink-50/50 dark:from-purple-900/10 dark:to-pink-900/10 p-5 md:p-8 rounded-[1.5rem] border border-purple-100/50 dark:border-purple-800/30">
-                                        <h4 className="font-black text-[10px] md:text-xs uppercase text-purple-800 dark:text-purple-300 mb-4 flex items-center gap-2">
+                                    <div className="bg-gradient-to-br from-purple-900/10 to-pink-900/10 p-5 md:p-8 rounded-[1.5rem] border border-purple-800/30">
+                                        <h4 className="font-black text-[10px] md:text-xs uppercase text-purple-300 mb-4 flex items-center gap-2">
                                             <Star size={16} className="fill-purple-500 text-purple-500" /> Puntos Clave
                                         </h4>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                                             {mod.keyPoints.map((kp: string, k: number) => (
-                                                <div key={k} className="flex items-start gap-3 text-sm md:text-base font-bold text-purple-900 dark:text-purple-200 bg-white/50 dark:bg-black/20 p-3 rounded-xl border border-white/50 dark:border-white/5">
+                                                <div key={k} className="flex items-start gap-3 text-sm md:text-base font-bold text-purple-200 bg-black/20 p-3 rounded-xl border border-white/5">
                                                     <span className="w-2 h-2 bg-purple-500 rounded-full mt-1.5 md:mt-2 shrink-0"></span>
                                                     <span className="leading-snug">{kp}</span>
                                                 </div>
