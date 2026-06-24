@@ -536,16 +536,16 @@ const QuizGenerator: React.FC = () => {
                     <div className={`bg-white dark:bg-gray-900/90 backdrop-blur-xl p-6 md:p-12 rounded-[2rem] md:rounded-[3rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.5)] border border-white/5 text-center mb-6 md:mb-10 transition-all duration-300 relative overflow-hidden ${answerStatus === 'wrong' ? 'animate-[shake_0.5s_ease-in-out] border-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.3)]' : ''} ${answerStatus === 'correct' ? 'border-green-500/50 shadow-[0_0_40px_rgba(34,197,94,0.3)]' : ''}`}>
                         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
 
-                        <span className="inline-block bg-white/5 px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 md:mb-8 text-gray-400 border border-white/5 shadow-inner">
+                        <span className="inline-block bg-black/5 dark:bg-white/5 px-4 md:px-6 py-1.5 md:py-2 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-4 md:mb-8 text-gray-500 dark:text-gray-400 border border-black/10 dark:border-white/5 shadow-inner">
                             Pregunta {currentQuestion + 1} de {quizData.questions.length}
                         </span>
-                        <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-2 md:mb-4 tracking-tight">
+                        <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-black text-black dark:text-white leading-tight mb-2 md:mb-4 tracking-tight">
                             {q.question}
                         </h2>
                         {/* Hint Area */}
                         {hintVisible && (
-                            <div className="mt-6 md:mt-8 p-3 md:p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl text-yellow-300 text-xs md:text-sm font-bold animate-in slide-in-from-top flex items-center justify-center gap-2 max-w-2xl mx-auto backdrop-blur-md">
-                                <Lightbulb size={18} className="text-yellow-400 animate-pulse shrink-0" /> PISTA: {q.explanation.substring(0, 80)}...
+                            <div className="mt-6 md:mt-8 p-3 md:p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl text-yellow-600 dark:text-yellow-300 text-xs md:text-sm font-bold animate-in slide-in-from-top flex items-center justify-center gap-2 max-w-2xl mx-auto backdrop-blur-md">
+                                <Lightbulb size={18} className="text-yellow-500 dark:text-yellow-400 animate-pulse shrink-0" /> PISTA: {q.explanation.substring(0, 80)}...
                             </div>
                         )}
                     </div>
